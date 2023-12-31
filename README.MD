@@ -44,7 +44,9 @@
 ### The original variable in the calling scope becomes invalid and cannot be used again.
 
 code example 
-```fn greet(name: String) {
+
+```
+fn greet(name: String) {
     println!("Hello, {}!", name); // Use the new name within the function
 }
 
@@ -53,6 +55,27 @@ fn main() {
     greet(my_name); // my_name is moved to the greet function
     // println!("My name is {}", my_name); // This would error: my_name is no longer valid here
 }
+```
+
+
+# Borrowing
+
+## passing in refrences as function params is known as borrowing. means when we pass variable as params in function then it wont drop even after execution of function 
+
+```
+fn main() {
+    let s1 = String::from("Deepak");
+
+    let length = get_length(&s1); //& denote the reference
+
+    println!("{}", s1); // it still working because we are passing refrence in function. so this is the borrowing;
+}
+
+fn get_length(s:&String) -> usize {
+    let size = s.len();
+    size
+}
+
 ```
 
 
