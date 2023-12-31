@@ -36,15 +36,8 @@
 5. Pointers on the stack link to data on the heap.
 
 
-### here is the visualisation of stack and heap when we call function 
 
 
-``` 
-fn allocation(){
-let s1 = String::from("hello");
-let s2 = s1;
-}
-```
 
 
 
