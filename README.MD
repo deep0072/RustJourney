@@ -36,6 +36,24 @@
 5. Pointers on the stack link to data on the heap.
 
 
+## so now comeback to Ownership Transfer:
+
+
+
+#### When you pass a variable to a function as a parameter, ownership of that variable is typically transferred to the function. This means the function takes control of the variable's memory and is responsible for its lifetime.
+### The original variable in the calling scope becomes invalid and cannot be used again.
+
+code example 
+```fn greet(name: String) {
+    println!("Hello, {}!", name); // Use the new name within the function
+}
+
+fn main() {
+    let my_name = String::from("Alice");
+    greet(my_name); // my_name is moved to the greet function
+    // println!("My name is {}", my_name); // This would error: my_name is no longer valid here
+}
+```
 
 
 
