@@ -39,14 +39,14 @@
 ### here is the visualisation of stack and heap when we call function 
 
 
-``` fn allocation(){
+``` 
+fn allocation(){
 let s1 = String::from("hello");
 let s2 = s1;
-}```
+}
+```
 
 
 
 
 
-
-image.png
