@@ -82,7 +82,71 @@ fn get_length(s:&String) -> usize {
 
 
 
+# Rust Structs Guide
 
+This guide will explain how to use structs in Rust, a programming language that emphasizes safety and performance. 
+
+## Defining Structs
+
+Structs in Rust are similar to tuples, in that they can hold multiple related values. However, unlike tuples, structs require you to name each piece of data, making it clear what the values represent [Source 0](https://doc.rust-lang.org/book/ch05-01-defining-structs.html). 
+
+Here's an example of defining a struct:
+
+```rust
+#[derive(Debug)]
+struct User {
+   active: bool,
+   user_name: String,
+   email: String,
+   sign_in_count: u64,
+}
+```
+
+In this example, `User` is a struct with four fields: `active`, `user_name`, `email`, and `sign_in_count`. The `#[derive(Debug)]` annotation above the struct declaration is used to enable formatting of the struct for output [Source 1](https://doc.rust-lang.org/std/keyword.struct.html).
+
+## Creating Instances of Structs
+
+After defining a struct, you can create an instance of it by specifying concrete values for each of the fields. Here's an example:
+
+```rust
+let user1 = User {
+   active: true,
+   email: String::from("deepak@gmail.com"),
+   user_name: String::from("Deepak"),
+   sign_in_count: 1,
+};
+```
+
+In this example, `user1` is an instance of the `User` struct [Source 0](https://doc.rust-lang.org/book/ch05-01-defining-structs.html).
+
+## Accessing and Updating Struct Fields
+
+You can access the fields of a struct using dot notation (`struct.fieldname`). To update a field, you need to make the struct instance mutable using the `mut` keyword [Source 12](https://www.makeuseof.com/rust-structs-guide-work-with/). Here's an example:
+
+```rust
+let mut user1 = User { /* ... */ };
+user1.user_name = String::from("Puneet");
+```
+
+In this example, the `user_name` field of `user1` is updated to `"Puneet"` [Source 12](https://www.makeuseof.com/rust-structs-guide-work-with/).
+
+## Creating New Instances from Existing Ones
+
+Rust provides a feature called struct update syntax, which allows you to create a new instance of a struct from an existing one. This is done using the `..` syntax [Source 7](https://zerotomastery.io/blog/rust-struct-guide/). Here's an example:
+
+```rust
+let user3 = User {
+   email: String::from("deepppp@gmail.com"),
+   user_name: String::from("shaktiman"),
+   ..user1
+};
+```
+
+In this example, `user3` is a new instance of the `User` struct, with the `email` and `user_name` fields explicitly set, and the rest of the fields copied from `user1` [Source 7](https://zerotomastery.io/blog/rust-struct-guide/).
+
+## Conclusion
+
+Structs in Rust are a powerful tool for organizing related data. They provide a way to name and manipulate groups of data, making your code clearer and easier to understand.
 
 
 
