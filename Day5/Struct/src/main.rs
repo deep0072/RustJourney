@@ -1,4 +1,4 @@
-// Structs  = Structs are like tuples hold multiple types of data. Unlike tuples order does not matter in struct.
+// Structs  = Structs are like tuples hold multiple types of data. Unlike tuples order does not matter in struct tuples.
 //  in a struct you’ll name each piece of data so it’s clear what the values mean
 
 #[derive(Debug)]
