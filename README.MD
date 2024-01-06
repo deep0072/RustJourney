@@ -244,4 +244,69 @@ for (key, value) in &scores {
 In this example, `scores.entry(&new_key).or_insert(69);` will insert the key "Black" with the value `69` into the hashmap only if the key "Black" does not already exist in the hashmap.
 
 
+# Error Handling in Rust
+
+Rust provides a few key concepts and tools for error handling. The primary ones are the `Result<T, E>` enum and the `Option<T>` enum.
+
+## The `Result<T, E>` Enum
+
+The `Result<T, E>` enum is used for operations that can fail. It has two variants: `Ok(T)`, which represents success and contains a value of type `T`, and `Err(E)`, which represents failure and contains an error of type `E` [Source 1](https://doc.rust-lang.org/book/ch09-00-error-handling.html).
+
+Here's an example of a function that returns a `Result`:
+
+```rust
+use std::fs::File;
+
+fn open_file(filename: &str) -> std::io::Result<File> {
+   File::open(filename)
+}
+```
+
+In this example, `open_file` tries to open a file and returns a `Result`. If it succeeds, it returns `Ok(File)`. If it fails, it returns `Err(io::Error)`.
+
+## The `Option<T>` Enum
+
+The `Option<T>` enum is used for operations that might not return a value. It has two variants: `Some(T)`, which represents a value of type `T`, and `None`, which represents the absence of a value [Source 1](https://doc.rust-lang.org/book/ch09-00-error-handling.html).
+
+Here's an example of a function that returns an `Option`:
+
+```rust
+fn find_first_even_number(vec: Vec<i32>) -> Option<i32> {
+   vec.into_iter().find(|&x| x % 2 == 0)
+}
+```
+
+In this example, `find_first_even_number` tries to find the first even number in a vector and returns an `Option`. If it finds an even number, it returns `Some(i32)`. If it doesn't find an even number, it returns `None`.
+
+## Error Propagation
+
+Rust uses the `?` operator to propagate errors. When you see `?` after an expression, it means "if this expression is `Err`, return early from the function and give the error to the caller". If the expression is `Ok`, it unwraps the value inside and continues executing the rest of the function [Source 0](https://dev.to/nathan20/how-to-handle-errors-in-rust-a-comprehensive-guide-1cco).
+
+Here's an example of error propagation:
+
+```rust
+use std::fs::File;
+
+fn read_file_contents(filename: &str) -> std::io::Result<String> {
+   let mut file = File::open(filename)?;
+   let mut contents = String::new();
+   file.read_to_string(&mut contents)?;
+   Ok(contents)
+}
+```
+
+In this example, if `File::open` or `file.read_to_string` returns an `Err`, `read_file_contents` will return early with that error. If they both succeed, it returns `Ok(contents)`.
+
+
+
+
+## Best Practices
+
+When handling errors in Rust, it's important to:
+
+- Use the `Result<T, E>` enum for operations that can fail, and the `Option<T>` enum for operations that might not return a value.
+- Use the `?` operator to propagate errors up the call stack.
+- Define your own error types to provide more context about what went wrong.
+
+
 
