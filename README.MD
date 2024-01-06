@@ -149,4 +149,99 @@ In this example, `user3` is a new instance of the `User` struct, with the `email
 Structs in Rust are a powerful tool for organizing related data. They provide a way to name and manipulate groups of data, making your code clearer and easier to understand.
 
 
+# Rust Collections: Vectors, Strings, and HashMaps
+
+This repository contains a Rust program that demonstrates the usage of vectors, strings, and hashmaps. These are fundamental data structures in Rust that allow us to store multiple values.
+
+## Vectors
+
+Vectors in Rust are similar to arrays, but they can grow and shrink dynamically. They are stored on the heap, which allows them to resize as needed.
+
+Here's an example of how to initialize and manipulate a vector:
+
+```rust
+let mut v: Vec<i32> = Vec::new(); // Initialize an empty vector
+
+// Add items to the vector using push
+v.push(4);
+v.push(5);
+v.push(6);
+v.push(7);
+
+// Access values of the vector using index
+let mut third_value = &v[2];
+println!("{}", third_value);
+
+// Use the get method to safely access values by index
+let fourth = v.get(3);
+match fourth {
+   Some(fourth) => println!("here is your data at index 4 {}", fourth),
+   None => println!("No data found"),
+}
+
+// Loop through the vector
+for i in &mut v {
+   *i += 80;
+}
+println!("{:?}", v);
+```
+
+## Strings
+
+Strings in Rust are UTF-8 encoded and are stored on the heap. They can be initialized using `String::new()`, `data.to_string()`, or `String::from("hello")`.
+
+Here's an example of how to update and manipulate strings:
+
+```rust
+let mut s = String::from("foo");
+s.push_str("deppak"); // Append a string slice
+s.push('!'); // Append a single character
+println!("{}", s);
+
+let s2 = String::from("hello");
+let s3 = String::from("Deepak");
+let s4 = format!("{}{}", s2, s3); // Concatenate strings
+println!("{}", s4);
+```
+
+Note: Indexing into a string is not allowed because a character in a string can take up more than one byte.
+
+## HashMaps
+
+HashMaps in Rust are similar to dictionaries in Python or objects in JavaScript. They store key-value pairs and allow for efficient lookup, insertion, and deletion of elements.
+
+Here's an example of how to initialize and manipulate a hashmap:
+
+```rust
+use std::collections::HashMap;
+
+let key1 = String::from("Blue");
+let key2 = String::from("Reds");
+
+let mut scores = HashMap::new();
+
+// Insert key-value pairs into the hashmap
+scores.insert(&key1, 10);
+scores.insert(&key2, 20);
+
+// Access values by key
+let value = scores.get(&key1);
+match value {
+   Some(value) => println!("found {}", value),
+   None => println!("nothing found"),
+}
+
+// Insert a key-value pair only if the key isn't already present
+let new_key = String::from("Black");
+scores.entry(&new_key).or_insert(69);
+
+// Print key-value pairs
+for (key, value) in &scores {
+   println!("key : {}, value: {}", key, value)
+}
+```
+
+In this example, `scores.entry(&new_key).or_insert(69);` will insert the key "Black" with the value `69` into the hashmap only if the key "Black" does not already exist in the hashmap.
+
+
 
