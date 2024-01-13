@@ -1,3 +1,5 @@
+use std::fmt::Display;
+
 // struct with lifetime annotation
 struct ImportantExcerpt<'a> {
     part: &'a str,
@@ -10,17 +12,22 @@ struct ImportantExcerpt<'a> {
     let i = ImportantExcerpt {
         part: first_sentence,
     };
+
+    //-------------------------------------------------------------------------------------
+
+    longest_with_an_annoucement("deepak", "bittu", "sunao");
  }
 
- fn first_word(s: &str) -> &str {
-    let bytes = s.as_bytes();
 
-    for (i, &item) in bytes.iter().enumerate() {
-        if item == b' ' {
-            return &s[0..i];
+
+ fn longest_with_an_annoucement <'a , T> (x:&'a str, y: &'a str,ann: T) -> &'a str 
+    // where is used to tell T can only implement Display
+    where T:Display,{
+        println!("Annoucement {}",ann);
+        if (x.len() > y.len()){
+            x
+        }else{
+            y
         }
-    }
-    &s
-
-  
+ 
 }
