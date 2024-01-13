@@ -1,3 +1,4 @@
+use std::fmt::Display;
 fn main() {
     let z;
     println!("Hello, world!");
@@ -14,6 +15,7 @@ fn main() {
                 \/
      */
     println!("{}", z); // well this prints
+    
 }
 
 // this function wont run because compiler not sure whether return type will be lived or not
@@ -35,3 +37,9 @@ fn longest_string<'a>(x: &'a str, y: &'a str) -> &'a str {
         y
     }
 }
+
+
+
+
+
+
