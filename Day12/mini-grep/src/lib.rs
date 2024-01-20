@@ -51,7 +51,7 @@ pub fn search<'a>(query: &str, content: &'a str) -> Vec<&'a str> {
     let mut results = Vec::new();
   
     for line in content.lines() {
-        println!("line:  {}", line);
+   
         if line.contains(&query) {
             results.push(line);
         }
@@ -62,7 +62,7 @@ pub fn case_sensitive_search<'a>(query: &str, content: &'a str) -> Vec<&'a str> 
     let mut results = Vec::new();
     let mut query = query.to_lowercase();
     for line in content.lines() {
-        println!("line:  {}", line);
+       
         if line.to_lowercase().contains(&query) {
             results.push(line);
         }

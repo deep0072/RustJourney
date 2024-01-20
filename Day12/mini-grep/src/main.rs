@@ -13,7 +13,9 @@ fn main() {
     // now store command line args  in variable
 
     let file_config = Config::build(&args).unwrap_or_else(|err| {
-        println!("Problem parsing arguments: {}", err);
+        //eprint just print the error to the terminal. it wont write to any file
+
+       eprintln!("Problem parsing arguments: {}", err);
 
         //process::exit function will stop the program immediately and return the
         //number that was passed as the exit status code
@@ -22,7 +24,7 @@ fn main() {
 
     // open file and read its content using read_to_string
     if let Err(e) = mini_grep::run(file_config) {
-        println!("Application error {e}");
+        eprintln!("Application error {e}");
         process::exit(1);
     }
 }
