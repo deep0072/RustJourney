@@ -8,11 +8,11 @@ use std::process;
 use mini_grep::Config;
 
 fn main() {
-    let args: Vec<String> = args().collect();
+    // let args: Vec<String> = args().collect();
 
     // now store command line args  in variable
 
-    let file_config = Config::build(&args).unwrap_or_else(|err| {
+    let file_config = Config::build(args()).unwrap_or_else(|err| {
         //eprint just print the error to the terminal. it wont write to any file
 
        eprintln!("Problem parsing arguments: {}", err);

@@ -8,14 +8,29 @@ pub struct Config {
 }
 
 impl Config {
-    pub fn build(args: &[String]) -> Result<Config, &'static str> {
+    pub fn build(mut args: env::Args) -> Result<Config, &'static str> {
         // 'string is life time
-        if args.len() < 3 {
-            return Err("not enough arguments");
-        }
+        // if args.len() < 3 {
+        //     return Err("not enough arguments");
+        // }
 
-        let query = args[1].clone(); // and our main args start from 1 because first value is binary
-        let file_path = args[2].clone();
+        // let query = args[1].clone(); // and our main args start from 1 because first value is binary
+        // let file_path = args[2].clone();
+
+        //------------------------------------optimised Approach using iterator approach-----------------------------------------
+
+        args.next(); // just skip first arg that is file part of out program
+
+        let query = match args.next(){
+            Some(arg)=>arg,
+            None=>return Err("no query mentioned here"),
+        };
+        let file_path = match args.next(){
+            Some(arg)=>arg,
+            None=>return Err("no file path mentioned here"),
+        };
+
+
         let ignore_case = env::var("IGNORE_CASE").is_ok(); // it will read value from env variable 
     
         println!("searching for {}", query);
@@ -48,15 +63,25 @@ pub fn run(config: Config) -> Result<(), Box<dyn Error>> {
 }
 
 pub fn search<'a>(query: &str, content: &'a str) -> Vec<&'a str> {
-    let mut results = Vec::new();
+    // let mut results = Vec::new();
   
-    for line in content.lines() {
+    // for line in content.lines() {
    
-        if line.contains(&query) {
-            results.push(line);
-        }
-    }
-    results
+    //     if line.contains(&query) {
+    //         results.push(line);
+    //     }
+    // }
+    // results
+
+    // here optimised version of above approach
+
+
+    content
+        .lines()
+        .filter(|line| line.contains(query)) // this filter out the string which contain the quey
+        .collect() // convert iterator into collection means crammed each value into line
+
+
 }
 pub fn case_sensitive_search<'a>(query: &str, content: &'a str) -> Vec<&'a str> {
     let mut results = Vec::new();
@@ -85,3 +110,4 @@ pub fn case_sensitive_search<'a>(query: &str, content: &'a str) -> Vec<&'a str> 
 //         assert_eq!(vec!["safe, fast, productive."], search(query, contents));
 //     }
 // }
+
