@@ -1,5 +1,7 @@
 // Enums ==> enums give you a way of saying a value is one of a possible set of values. For example, we may want to say that Rectangle
 //  is one of a set of possible shapes that also includes Circle and Triangle
+// enums is used to store different variants of something.
+// like loki variants in multiverse
 
 // one of the example is Ip addresses could be ipv4 and ipv6
 
@@ -200,3 +202,4 @@ fn value_in_cents(coin:Coin)->u8{
         }
     }
 }
+
