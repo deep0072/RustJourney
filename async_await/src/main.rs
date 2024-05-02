@@ -8,12 +8,12 @@ error_chain!{
 }
 
 #[tokio::main] // tokio used for async function t
-async fn main()-> Result<()> {
-    let res = reqwest::get("http://httpbin.org/get").await?;
-    println!("status {}", res.status());
-    println!("headers:\n {:?}", res.headers());
+    async fn main()-> Result<()> {
+        let res = reqwest::get("http://httpbin.org/get").await?;
+        println!("status {}", res.status());
+        println!("headers:\n {:?}", res.headers());
 
-    let body = res.text().await?;
-    println!("body {}", body);
-    Ok(())
-}
+        let body = res.text().await?;
+        println!("body {}", body);
+        Ok(())
+    }
