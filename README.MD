@@ -309,4 +309,193 @@ When handling errors in Rust, it's important to:
 - Define your own error types to provide more context about what went wrong.
 
 
+# Rust Traits Overview
+
+A **trait** in Rust is a way to define shared behavior or functionality that can be implemented by different types (structs, enums, etc.). It's similar to interfaces in other languages, enabling you to write more flexible and reusable code.
+
+## Key Concepts
+
+### 1. **Defining a Trait**
+A **trait** defines a set of methods that types can implement. You can also provide **default method implementations** in a trait.
+
+```rust
+trait Summary {
+    fn get_author(&self) -> &str;
+
+    // Default method implementation
+    fn summarize(&self) -> String {
+        format!("{} read more...", self.get_author())
+    }
+}
+```
+
+- `get_author()` is a method that must be implemented by any type that implements `Summary`.
+- `summarize()` has a **default implementation** that uses `get_author()`.
+
+### 2. **Implementing a Trait for a Struct**
+To use a trait with a struct, you implement the trait for that struct:
+
+```rust
+struct NewsArticle {
+    author: String,
+    headline: String,
+}
+
+impl Summary for NewsArticle {
+    fn get_author(&self) -> &str {
+        &self.author
+    }
+}
+```
+
+Here, `NewsArticle` implements the `Summary` trait by providing its own version of the `get_author()` method.
+
+### 3. **Using Traits**
+Once a type implements a trait, you can call the trait's methods on instances of that type:
+
+```rust
+let article = NewsArticle { author: String::from("John"), headline: String::from("Breaking News!") };
+println!("{}", article.summarize()); // Output: John read more...
+```
+
+Since `NewsArticle` implements `Summary`, it can use the `summarize()` method, which internally calls `get_author()`.
+
+---
+
+### 4. **Trait Bounds**
+You can use **trait bounds** to enforce that a function accepts only types that implement a specific trait.
+
+```rust
+fn print_summary<T: Summary>(item: T) {
+    println!("{}", item.summarize());
+}
+```
+
+- This function will only work with types that implement the `Summary` trait.
+
+### 5. **Default Methods in Traits**
+You can provide **default implementations** for methods in traits. Types implementing the trait can override these defaults if needed.
+
+```rust
+trait Summary {
+    fn get_author(&self) -> &str;
+    
+    fn summarize(&self) -> String {
+        format!("{}: {}", self.get_author(), "Summary...")
+    }
+}
+
+struct NewsArticle {
+    author: String,
+}
+
+impl Summary for NewsArticle {
+    fn get_author(&self) -> &str {
+        &self.author
+    }
+}
+```
+
+In this case, `summarize()` has a default implementation, but `get_author()` must be implemented by the struct.
+
+### 6. **Multiple Trait Bounds**
+You can require a type to implement multiple traits in a function signature:
+
+```rust
+trait MyTrait {
+    fn demo(&self) {
+        println!("Demo from MyTrait");
+    }
+}
+
+fn show_details(item: &(impl Summary + MyTrait)) {
+    println!("{}", item.summarize());
+    item.demo();
+}
+```
+
+In the `show_details` function, the type `item` must implement both `Summary` and `MyTrait`.
+
+---
+
+## Example Code
+
+Here’s an example that ties everything together:
+
+```rust
+trait Summary {
+    fn get_author(&self) -> &str;
+    
+    // Default method implementation
+    fn summarize(&self) -> String {
+        format!("{} read more...", self.get_author())
+    }
+}
+
+struct NewsArticle {
+    author: String,
+    headline: String,
+}
+
+impl Summary for NewsArticle {
+    fn get_author(&self) -> &str {
+        &self.author
+    }
+}
+
+struct Tweet {
+    username: String,
+    content: String,
+}
+
+impl Summary for Tweet {
+    fn get_author(&self) -> &str {
+        &self.username
+    }
+}
+
+trait MyTrait {
+    fn demo(&self) {
+        println!("Demo from MyTrait");
+    }
+}
+
+impl MyTrait for Tweet {}
+
+fn print_summary<T: Summary>(item: T) {
+    println!("{}", item.summarize());
+}
+
+fn show_details(item: &(impl Summary + MyTrait)) {
+    println!("{}", item.summarize());
+    item.demo();
+}
+
+fn main() {
+    let tweet = Tweet { username: String::from("tech_guru"), content: String::from("Learning Rust!") };
+    let article = NewsArticle { author: String::from("John Doe"), headline: String::from("Rust is amazing!") };
+
+    print_summary(tweet);   // Calls summarize() from Summary trait
+    print_summary(article); // Calls summarize() from Summary trait
+
+    show_details(&tweet); // Uses both Summary and MyTrait
+}
+```
+
+### Key Functions:
+- **`print_summary()`**: Prints the summary of any object implementing the `Summary` trait.
+- **`show_details()`**: Accepts an object implementing both `Summary` and `MyTrait` and prints its summary and calls the `demo()` method.
+
+---
+
+## Conclusion
+
+- **Traits** define shared functionality for different types.
+- **Trait Bounds** allow you to restrict function parameters to types that implement specific traits.
+- **Default Methods** in traits can provide behavior that can be overridden.
+- **Multiple Traits** can be combined in a function signature to work with types implementing more than one trait.
+
+Traits are a key feature of Rust, enabling polymorphism and code reuse.
+
+
 
