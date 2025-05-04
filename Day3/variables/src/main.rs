@@ -12,8 +12,8 @@ fn main() {
     const MY_AGE : u32 = 45;
     println!("{}", MY_AGE);
 
-    // scaler data type => which represnt a single value
-    // 1. Integers ==>
+    // // scaler data type => which represnt a single value
+    // // 1. Integers ==>
 
     let a = 9822; // decimal
     let b = 0xff; // hex
@@ -25,24 +25,25 @@ fn main() {
     let x = false;
     let y = true;
 
-    // 4 Character ==> single character in quotes;
+    // // 4 Character ==> single character in quotes;
 
-    let g = 'A';
-    let f = '😉';
+    // let g = 'A';
+    // let f = '😉';
 
     // compount types ==> which represent the group of values;
 
     // 1. tuples ==> fixed size of array holds different type of data types
 
-    let tup = ("Deepak", 007);
+    // let tup = ("Deepak", 007, (89,7));
 
-    // destructuring tuples ==> get the value of tuples
+    // // destructuring tuples ==> get the value of tuples
 
-    let (name, code) = tup;
+    // println!("{}",tup.2.0); // ==> 89
+    // let (name, code) = tup;
 
-    // get value from tuple using dot notation ==> tup.index
+    // // get value from tuple using dot notation ==> tup.index
 
-    let (code) = tup.1;
+    // let (code) = tup.1;
 
     //------------------------------------------------------------------------------------
 
@@ -50,7 +51,7 @@ fn main() {
 
     let error_codes = [400,300,200];
 
-    // to get the value from array use arr[index]
+    // to get the value from array use arr[in dex]
     let success_Code = error_codes[2];
 
     // to create array containing 0 with length of 8 ==> [zero; lengthofarray]
